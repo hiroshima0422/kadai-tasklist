@@ -14,7 +14,7 @@
                         <div>{!! Form::label('content', 'メッセージ:') !!}</div>
                         <div>{!! Form::text('content', null, ['class' => 'form-control']) !!}</div>
                 </div>
-                git remote add origin https://github.com/hiroshima0422/kadai-tasklist-Bootstrap.git<div>{!! Form::submit('更新', ['class' => 'btn btn-default']) !!}</div>
+                <div>{!! Form::submit('更新', ['class' => 'btn btn-default']) !!}</div>
             {!! Form::close() !!}
         </div>    
     </div>
