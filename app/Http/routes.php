@@ -23,7 +23,13 @@ Route::get('login', 'Auth\AuthController@getLogin')->name('login.get');
 Route::post('login', 'Auth\AuthController@postLogin')->name('login.post');
 Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', 'TasksController@index');
 
-//Route::get('/', 'TasksController@index');
+    Route::resource('tasks', 'TasksController');
+    
+    //Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+});
 
-Route::resource('tasks', 'TasksController');
+
+
