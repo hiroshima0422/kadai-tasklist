@@ -18,7 +18,14 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        //$tasks = Task::all();
+        //$task = Task::find($id);
+        $user = \Auth::user();
+        //$task = $user->tasks()->all();
+        $tasks = $user->tasks;
+        //$task = $user->tasks;
+        
+
 
         return view('tasks.index', [
             'tasks' => $tasks,
@@ -49,11 +56,13 @@ class TasksController extends Controller
     {
         $this->validate($request, [
             'status' => 'required',   // 追加
+            'user_id' => 'required',   // 追加
             'content' => 'required|max:255',
         ]);
         
         $task = new Task;
         $task->status = $request->status;    // 追加
+        $task->user_id = $request->user_id;    // 追加
         $task->content = $request->content;
         $task->save();
         
@@ -101,11 +110,13 @@ class TasksController extends Controller
     {
         $this->validate($request, [
             'status' => 'required',   // 追加
+            'user_id' => 'required',   // 追加
             'content' => 'required|max:255',
         ]);
         
         $task = Task::find($id);
         $task->status = $request->status;    // 追加
+        $task->user_id = $request->user_id;    // 追加
         $task->content = $request->content;
         $task->save();
 
