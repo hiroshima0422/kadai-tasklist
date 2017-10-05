@@ -78,10 +78,13 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
-
-        return view('tasks.show', [
-            'task' => $task,
-        ]);
+        if (\Auth::user()->id === $task->user_id) {
+            return view('tasks.show', [
+                'task' => $task,
+            ]);
+        }else{
+            return redirect('/');
+        }
         
     }
 
@@ -95,9 +98,13 @@ class TasksController extends Controller
     {
         $task = Task::find($id);
 
-        return view('tasks.edit', [
-            'task' => $task,
-        ]);
+        if (\Auth::user()->id === $task->user_id) {
+            return view('tasks.show', [
+                'task' => $task,
+            ]);
+        }else{
+            return redirect('/');
+        }
     }
     /**
      * Update the specified resource in storage.
@@ -132,8 +139,9 @@ class TasksController extends Controller
     public function destroy($id)
     {
         $task = Task::find($id);
-        $task->delete();
-
+        if (\Auth::user()->id === $task->user_id) {
+            $task->delete();
+        }
         return redirect('/');
     }
 }
